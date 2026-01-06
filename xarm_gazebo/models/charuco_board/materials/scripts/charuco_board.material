@@ -1,0 +1,13 @@
+material CharucoBoard/Texture
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture charuco_board.png
+      }
+    }
+  }
+}

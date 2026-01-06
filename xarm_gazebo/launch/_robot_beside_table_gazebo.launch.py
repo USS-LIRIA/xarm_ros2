@@ -12,7 +12,7 @@ from pathlib import Path
 from ament_index_python import get_package_share_directory
 from launch.launch_description_sources import load_python_launch_file_as_module
 from launch import LaunchDescription
-from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, RegisterEventHandler
+from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, RegisterEventHandler, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
@@ -381,6 +381,13 @@ def launch_setup(context, *args, **kwargs):
 
 
 def generate_launch_description():
+    model_path = os.path.join(get_package_share_directory('xarm_gazebo'), 'models')
+    gazebo_model_path = os.pathsep.join(filter(None, [os.environ.get('GAZEBO_MODEL_PATH', ''), model_path]))
+    ign_resource_path = os.pathsep.join(filter(None, [os.environ.get('IGN_GAZEBO_RESOURCE_PATH', ''), model_path]))
+    gz_resource_path = os.pathsep.join(filter(None, [os.environ.get('GZ_SIM_RESOURCE_PATH', ''), model_path]))
     return LaunchDescription([
+        SetEnvironmentVariable('GAZEBO_MODEL_PATH', gazebo_model_path),
+        SetEnvironmentVariable('IGN_GAZEBO_RESOURCE_PATH', ign_resource_path),
+        SetEnvironmentVariable('GZ_SIM_RESOURCE_PATH', gz_resource_path),
         OpaqueFunction(function=launch_setup)
     ])

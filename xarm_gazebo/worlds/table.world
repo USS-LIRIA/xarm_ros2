@@ -16,6 +16,11 @@
       <name>table</name>
       <pose>0.0 -0.84 0 0 0 0</pose>
     </include>
+    <include>
+      <uri>model://charuco_board</uri>
+      <name>charuco_board</name>
+      <pose>0 -0.84 1.04 0 0 0</pose>
+    </include>
 
     <physics type="ode">
       <max_step_size>0.001</max_step_size>
