@@ -26,6 +26,11 @@ def generate_launch_description():
     robot_type = LaunchConfiguration('robot_type', default='xarm')
 
     add_realsense_d435i = LaunchConfiguration('add_realsense_d435i', default=False)
+    add_camera_adapter = LaunchConfiguration('add_camera_adapter', default=False)
+    camera_adapter_xyz = LaunchConfiguration('camera_adapter_xyz', default='"0 0 0"')
+    camera_adapter_rpy = LaunchConfiguration('camera_adapter_rpy', default='"0 0 0"')
+    camera_adapter_tool_xyz = LaunchConfiguration('camera_adapter_tool_xyz', default='"0 0 0.0015"')
+    camera_adapter_tool_rpy = LaunchConfiguration('camera_adapter_tool_rpy', default='"0 0 0"')
     model1300 = LaunchConfiguration('model1300', default=False)
 
     add_other_geometry = LaunchConfiguration('add_other_geometry', default=False)
@@ -59,6 +64,11 @@ def generate_launch_description():
             'dof': dof,
             'robot_type': robot_type,
             'add_realsense_d435i': add_realsense_d435i,
+            'add_camera_adapter': add_camera_adapter,
+            'camera_adapter_xyz': camera_adapter_xyz,
+            'camera_adapter_rpy': camera_adapter_rpy,
+            'camera_adapter_tool_xyz': camera_adapter_tool_xyz,
+            'camera_adapter_tool_rpy': camera_adapter_tool_rpy,
             'model1300': model1300,
             'add_other_geometry': add_other_geometry,
             'geometry_type': geometry_type,

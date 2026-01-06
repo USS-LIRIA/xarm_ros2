@@ -20,6 +20,11 @@
     load_gazebo_plugin:=false 
     add_realsense_d435i:=false
     add_d435i_links:=true
+    add_camera_adapter:=false
+    camera_adapter_xyz:='0 0 0'
+    camera_adapter_rpy:='0 0 0'
+    camera_adapter_tool_xyz:='0 0 0.0015'
+    camera_adapter_tool_rpy:='0 0 0'
     use_gazebo_camera:=false
     add_other_geometry:=false 
     geometry_type:='box'
@@ -236,17 +241,30 @@
       <parent link="${prefix}link${dof}" />
       <child link="${prefix}link_eef" />
     </joint>
+
+    <xacro:property name="tool_attach_link" value="${prefix}link_eef"/>
+    <xacro:property name="tool_attach_xyz" value="0 0 0"/>
+    <xacro:property name="tool_attach_rpy" value="0 0 0"/>
+
+    <xacro:if value="${add_camera_adapter}">
+      <xacro:include filename="$(find xarm_description)/urdf/end_tool/camera_adapter.urdf.xacro" />
+      <xacro:camera_adapter_urdf prefix="${prefix}" attach_to="${prefix}link_eef"
+        attach_xyz="${camera_adapter_xyz}" attach_rpy="${camera_adapter_rpy}" />
+      <xacro:property name="tool_attach_link" value="${prefix}camera_adapter_link"/>
+      <xacro:property name="tool_attach_xyz" value="${camera_adapter_tool_xyz}"/>
+      <xacro:property name="tool_attach_rpy" value="${camera_adapter_tool_rpy}"/>
+    </xacro:if>
     
     <xacro:if value="${add_gripper}">
       <xacro:if value="${robot_type == 'lite'}">
         <!-- Load Lite Gripper Model URDF -->
         <xacro:include filename="$(find xarm_description)/urdf/gripper/lite_gripper.urdf.xacro" />
-        <xacro:uflite_gripper_urdf prefix="${prefix}" attach_to="${prefix}link_eef" />
+        <xacro:uflite_gripper_urdf prefix="${prefix}" attach_to="${tool_attach_link}" attach_xyz="${tool_attach_xyz}" attach_rpy="${tool_attach_rpy}" />
       </xacro:if>
       <xacro:unless value="${robot_type == 'lite'}">
         <!-- Load XArm Gripper Model URDF -->
         <xacro:include filename="$(find xarm_description)/urdf/gripper/xarm_gripper_macro.xacro" />
-        <xacro:xarm_gripper_macro prefix="${prefix}" attach_to="${prefix}link_eef" 
+        <xacro:xarm_gripper_macro prefix="${prefix}" attach_to="${tool_attach_link}" attach_xyz="${tool_attach_xyz}" attach_rpy="${tool_attach_rpy}" 
           ros2_control_plugin="${ros2_control_plugin}" dof="${dof}" hard_interface="${hard_interface}" />
       </xacro:unless>
     </xacro:if>
@@ -255,7 +273,7 @@
       <xacro:unless value="${robot_type == 'lite'}">
         <!-- Load BIO Gripper Model URDF -->
         <xacro:include filename="$(find xarm_description)/urdf/gripper/bio_gripper_macro.xacro" />
-        <xacro:bio_gripper_macro prefix="${prefix}" attach_to="${prefix}link_eef" 
+        <xacro:bio_gripper_macro prefix="${prefix}" attach_to="${tool_attach_link}" attach_xyz="${tool_attach_xyz}" attach_rpy="${tool_attach_rpy}" 
           ros2_control_plugin="${ros2_control_plugin}" dof="${dof}" hard_interface="${hard_interface}" />
       </xacro:unless>
     </xacro:if>
@@ -264,19 +282,19 @@
       <xacro:if value="${robot_type == 'lite'}">
         <!-- Load Lite Vacuum Gripper Model URDF -->
         <xacro:include filename="$(find xarm_description)/urdf/vacuum_gripper/lite_vacuum_gripper.urdf.xacro" />
-        <xacro:uflite_vacuum_gripper_urdf prefix="${prefix}" attach_to="${prefix}link_eef" />
+        <xacro:uflite_vacuum_gripper_urdf prefix="${prefix}" attach_to="${tool_attach_link}" attach_xyz="${tool_attach_xyz}" attach_rpy="${tool_attach_rpy}" />
       </xacro:if>
       <xacro:unless value="${robot_type == 'lite'}">
         <!-- Load XArm Vacuum Gripper Model URDF -->
         <xacro:include filename="$(find xarm_description)/urdf/vacuum_gripper/xarm_vacuum_gripper.urdf.xacro" />
-        <xacro:xarm_vacuum_gripper_urdf prefix="${prefix}" attach_to="${prefix}link_eef" />
+        <xacro:xarm_vacuum_gripper_urdf prefix="${prefix}" attach_to="${tool_attach_link}" attach_xyz="${tool_attach_xyz}" attach_rpy="${tool_attach_rpy}" />
       </xacro:unless>
     </xacro:if>
 
     <xacro:if value="${not add_gripper and not add_vacuum_gripper and add_other_geometry}">
       <!-- Load Other Model URDF -->
       <xacro:include filename="$(find xarm_description)/urdf/other/other_geometry.urdf.xacro" />
-      <xacro:other_geometry prefix="${prefix}" attach_to="${prefix}link_eef"
+      <xacro:other_geometry prefix="${prefix}" attach_to="${tool_attach_link}" attach_xyz="${tool_attach_xyz}" attach_rpy="${tool_attach_rpy}"
         geometry_type="${geometry_type}" geometry_mass="${geometry_mass}" 
         geometry_height="${geometry_height}" geometry_radius="${geometry_radius}"
         geometry_length="${geometry_length}" geometry_width="${geometry_width}"

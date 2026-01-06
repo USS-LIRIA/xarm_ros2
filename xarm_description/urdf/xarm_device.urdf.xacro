@@ -21,6 +21,11 @@
 
   <xacro:arg name="add_realsense_d435i" default="false"/>
   <xacro:arg name="add_d435i_links" default="true"/>
+  <xacro:arg name="add_camera_adapter" default="false"/>
+  <xacro:arg name="camera_adapter_xyz" default="0 0 0"/>
+  <xacro:arg name="camera_adapter_rpy" default="0 0 0"/>
+  <xacro:arg name="camera_adapter_tool_xyz" default="0 0 0.0015"/>
+  <xacro:arg name="camera_adapter_tool_rpy" default="0 0 0"/>
   <xacro:arg name="use_gazebo_camera" default="false"/>
 
   <xacro:arg name="add_other_geometry" default="false"/>
@@ -56,6 +61,11 @@
     load_gazebo_plugin="true" ros2_control_params="$(arg ros2_control_params)"
     add_realsense_d435i="$(arg add_realsense_d435i)" 
     add_d435i_links="$(arg add_d435i_links)" 
+    add_camera_adapter="$(arg add_camera_adapter)" 
+    camera_adapter_xyz="$(arg camera_adapter_xyz)" 
+    camera_adapter_rpy="$(arg camera_adapter_rpy)" 
+    camera_adapter_tool_xyz="$(arg camera_adapter_tool_xyz)" 
+    camera_adapter_tool_rpy="$(arg camera_adapter_tool_rpy)" 
     add_other_geometry="$(arg add_other_geometry)" 
     geometry_type="$(arg geometry_type)" geometry_mass="$(arg geometry_mass)"
     geometry_height="$(arg geometry_height)" geometry_radius="$(arg geometry_radius)"

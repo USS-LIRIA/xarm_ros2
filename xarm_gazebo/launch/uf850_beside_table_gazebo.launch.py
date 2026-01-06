@@ -21,6 +21,11 @@ def generate_launch_description():
     add_vacuum_gripper = LaunchConfiguration('add_vacuum_gripper', default=False)
 
     add_realsense_d435i = LaunchConfiguration('add_realsense_d435i', default=False)
+    add_camera_adapter = LaunchConfiguration('add_camera_adapter', default=False)
+    camera_adapter_xyz = LaunchConfiguration('camera_adapter_xyz', default='"0 0 0"')
+    camera_adapter_rpy = LaunchConfiguration('camera_adapter_rpy', default='"0 0 0"')
+    camera_adapter_tool_xyz = LaunchConfiguration('camera_adapter_tool_xyz', default='"0 0 0.003"')
+    camera_adapter_tool_rpy = LaunchConfiguration('camera_adapter_tool_rpy', default='"0 0 0"')
 
     add_other_geometry = LaunchConfiguration('add_other_geometry', default=False)
     geometry_type = LaunchConfiguration('geometry_type', default='box')
@@ -51,6 +56,11 @@ def generate_launch_description():
             'robot_type': 'uf850',
             'gz_type': 'gz',
             'add_realsense_d435i': add_realsense_d435i,
+            'add_camera_adapter': add_camera_adapter,
+            'camera_adapter_xyz': camera_adapter_xyz,
+            'camera_adapter_rpy': camera_adapter_rpy,
+            'camera_adapter_tool_xyz': camera_adapter_tool_xyz,
+            'camera_adapter_tool_rpy': camera_adapter_tool_rpy,
             'add_other_geometry': add_other_geometry,
             'geometry_type': geometry_type,
             'geometry_mass': geometry_mass,
