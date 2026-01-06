@@ -499,6 +499,16 @@ __Reminder 4: The <hw_ns> described below is replaced with the actual one, the x
     For dual arm launch files(with ```dual_``` prefix), it can be specified through:
     - __add_realsense_d435i_1__
     - __add_realsense_d435i_2__
+- __add_camera_adapter__, default: false.  
+    Whether to load the camera adapter model at the end.
+- __camera_adapter_xyz__, default: "0 0 0"  
+    XYZ offset (m) from end-effector link to camera adapter link.
+- __camera_adapter_rpy__, default: "0 0 0"  
+    RPY (rad) from end-effector link to camera adapter link.
+- __camera_adapter_tool_xyz__, default: "0 0 0.0015"  
+    XYZ offset (m) from camera adapter link to tool/gripper attachment.
+- __camera_adapter_tool_rpy__, default: "0 0 0"  
+    RPY (rad) from camera adapter link to tool/gripper attachment.
 - __add_gripper__, default: false. 
     Whether to include UFACTORY gripper in the model，it has higher priority than the argument ```add_vacuum_gripper```.
     For dual arm launch files(with ```dual_``` prefix), it can be specified through:
