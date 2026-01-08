@@ -258,6 +258,11 @@ class MoveItConfigsBuilder(ParameterBuilder):
         add_bio_gripper = get_param_str('add_bio_gripper', False)
         add_realsense_d435i = get_param_str('add_realsense_d435i', False)
         add_d435i_links = get_param_str('add_d435i_links', True)
+        add_camera_adapter = get_param_str('add_camera_adapter', False)
+        camera_adapter_xyz = get_list_param_str('camera_adapter_xyz', '0 0 0')
+        camera_adapter_rpy = get_list_param_str('camera_adapter_rpy', '0 0 0')
+        camera_adapter_tool_xyz = get_list_param_str('camera_adapter_tool_xyz', '0 0 0.0015')
+        camera_adapter_tool_rpy = get_list_param_str('camera_adapter_tool_rpy', '0 0 0')
         use_gazebo_camera = get_param_str('use_gazebo_camera', False)
         add_other_geometry = get_param_str('add_other_geometry', False)
         geometry_type = get_param_str('geometry_type', 'box')
@@ -305,6 +310,11 @@ class MoveItConfigsBuilder(ParameterBuilder):
             'add_bio_gripper': add_bio_gripper,
             'add_realsense_d435i': add_realsense_d435i,
             'add_d435i_links': add_d435i_links,
+            'add_camera_adapter': add_camera_adapter,
+            'camera_adapter_xyz': camera_adapter_xyz,
+            'camera_adapter_rpy': camera_adapter_rpy,
+            'camera_adapter_tool_xyz': camera_adapter_tool_xyz,
+            'camera_adapter_tool_rpy': camera_adapter_tool_rpy,
             'use_gazebo_camera': use_gazebo_camera,
             'add_other_geometry': add_other_geometry,
             'geometry_type': geometry_type,
